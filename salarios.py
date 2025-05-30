@@ -3,21 +3,47 @@
 # Matheus Latorre de Assis
 # Vinícius Mlaker de Oliveira Dias
 
-def calcularAliqINSS(salarioBruto):
-    if salarioBruto <= 0:
-        return 0
-    if salarioBruto <= 1518:
-        return 7.5
-    elif salarioBruto <= 2793.88:
-        return 9
-    elif salarioBruto <= 4190.84:
-        return 12
-    elif salarioBruto <= 8157.41:
-        return 14
-    else:
-        return "Teto"
+def verificarSalarioBruto(): # Função que recebe os salários brutos e os guarda ignorando o 0 e os colocando em ordem com InsertionSort (vale nota)
+    salarioBruto = None
+    listaSalariosBrutos = []
+    while salarioBruto != 0:
+        salarioBruto = float(input())
+        index = 0
+        while index < len(listaSalariosBrutos) and salarioBruto > listaSalariosBrutos[index]:
+            index += 1
+        if salarioBruto > 0:
+            listaSalariosBrutos.insert(index, salarioBruto)
+    return listaSalariosBrutos
 
-def verificarDeducaoINSS(aliqINSS):
+def calcularAliquotaINSS(listaSalariosBrutos): # Função que retorna as aliquotas para cada salário bruto inserido
+    listaAliquotaINSS = []
+    for salarioBruto in listaSalariosBrutos:
+        if salarioBruto <= 0:
+            listaAliquotaINSS.append(0)
+        if salarioBruto <= 1518:
+            listaAliquotaINSS.append(7.5)
+        elif salarioBruto <= 2793.88:
+            listaAliquotaINSS.append(9)
+        elif salarioBruto <= 4190.84:
+            listaAliquotaINSS.append(12)
+        elif salarioBruto <= 8157.41:
+            listaAliquotaINSS.append(14)
+        else:
+            listaAliquotaINSS.append("Teto")
+    return listaAliquotaINSS
+
+def verificarDeducaoINSS(listaSalariosBrutos):
+    listaDeducaoINSS = []
+    for salarioBruto in listaSalariosBrutos:
+        if salarioBruto <= 2793.88:
+            listaDeducaoINSS.append(22.77)
+        elif salarioBruto <= 4190.84:
+            listaDeducaoINSS.append(106.59)
+        elif salarioBruto <= 8157.41:
+            listaDeducaoINSS.append(190.4)
+        else:
+            listaDeducaoINSS.append(0)
+    return listaDeducaoINSS
     if aliqINSS == 9:
         return 22.77
     elif aliqINSS == 12:
@@ -71,21 +97,7 @@ def calcularSalarioLiquido():
 
 # def formatarSaida():
 
-salarioBruto = 1815
-print(f"SALARIO BRUTO {salarioBruto}")
-aliqInss = calcularAliqINSS(salarioBruto)
-print(f"ALIQUOTA INNS {aliqInss}")
-deducaoINSS = verificarDeducaoINSS(aliqInss)
-print(f"DEDUCAO INSS {deducaoINSS:.2f}")
-valINSS = calcularValINSS(salarioBruto, aliqInss)
-print(f"VAL INSS {valINSS:.2f}")
-baseIR = calcularBaseIR(salarioBruto, valINSS)
-print(f"BASE IR {baseIR:.2f}")
-aliqIR = calcularAliqIR(baseIR)
-print(f"ALIQ IR {aliqIR:.2f}")
-deducaoIR = verificarDeducaoIR(aliqIR)
-print(f"DEDUCAO IR {deducaoIR:.2f}")
-valIR = calcularValIR()
-print(f"VALOR IR {valIR:.2f}")
-salarioLiquido = calcularSalarioLiquido()
-print(f"SAL LIQUIDO {salarioLiquido:.2f}")
+iniciar = verificarSalarioBruto()
+print(iniciar)
+print(calcularAliquotaINSS(iniciar))
+print(verificarDeducaoINSS(iniciar))
