@@ -91,7 +91,6 @@ def formatarSaida(salariosBrutos):
         valorINSS = calcularValINSS(salarioBruto, aliquotaINSS, deducaoINSS)
         baseIR = calcularBaseIR(salarioBruto, valorINSS)
         aliquotaIR = calcularAliquotaIR(baseIR)
-        baseIR = verificarDeducaoIR(baseIR)
         deducaoIR = verificarDeducaoIR(baseIR)
         valorIR = calcularValorIR(baseIR, aliquotaIR, deducaoIR)
         salarioLiquido = calcularSalarioLiquido(salarioBruto, valorINSS, valorIR)
